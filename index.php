@@ -77,6 +77,7 @@ try {
         'profileData' => $profileData
       ]); 
     break;
+
     /**
      * @method POST
      * @param nickname
@@ -103,6 +104,7 @@ try {
         'profileData' => $profileData
       ]); 
     break;
+
     /**
      * @method POST
      * @param nickname
@@ -144,8 +146,40 @@ try {
         'profileData' => $profileData
       ]); 
     break;
-    default:
-      Response::throwException('PAGE: {' . Request::getParam('page') . '} doesnt exists');
+
+    /**
+     * @method PATCH
+     * @param idPlayer
+     * @param score
+     * @param totalKills
+     * @param totalDeaths
+     */
+    case 'profile-update':
+      $profileModel = $bride->initModel('profile');
+
+      Request::validatePostParam('idPlayer');
+      Request::validatePostParam('score');
+      Request::validatePostParam('totalKills');
+      Request::validatePostParam('totalDeaths');
+
+      $postData = Request::getPostData();
+
+      $profileData = $profileModel->getById((int) $postData['idPlayer']);
+
+      if (empty($profileData)) Response::throwException('Nenašiel sa herný účet');
+
+      $profileModel->update([
+        'score' => $postData['score'],
+        'total_kills' => (int) $postData['totalKills'],
+        'total_deaths' => (int) $postData['totalDeaths'],
+      ], (int) $postData['idPlayer']);
+ 
+      echo Response::getJson([
+        'status' => 'success'
+      ]); 
+    break;
+
+    default: Response::throwException('PAGE: {' . Request::getParam('page') . '} doesnt exists');
     break;
   }
 } catch(\Exception $e) {
