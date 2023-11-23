@@ -59,12 +59,13 @@ try {
   Common::androidOrIos();
 
   switch (Request::getParam('page')) {
+
     /**
      * @method GET
      * @param idPlayer
      */
     case 'profile':
-      $profileModel = $bride->initModel('profile');
+      $profileModel = $bride->initModel('profiles');
 
       Request::validateGetParam('idPlayer');
 
@@ -84,7 +85,7 @@ try {
      * @param password
      */
     case 'login':
-      $profileModel = $bride->initModel('profile');
+      $profileModel = $bride->initModel('profiles');
 
       Request::validatePostParam('nickname');
       Request::validatePostParam('password');
@@ -112,7 +113,7 @@ try {
      * @param uid
      */
     case 'register':
-      $profileModel = $bride->initModel('profile');
+      $profileModel = $bride->initModel('profiles');
 
       Request::validatePostParam('nickname');
       Request::validatePostParam('password');
@@ -155,7 +156,7 @@ try {
      * @param totalDeaths
      */
     case 'profile-update':
-      $profileModel = $bride->initModel('profile');
+      $profileModel = $bride->initModel('profiles');
 
       Request::validatePostParam('idPlayer');
       Request::validatePostParam('score');

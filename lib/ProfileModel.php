@@ -2,6 +2,6 @@
 
 class ProfileModel extends Model {
 
-  public string $tableName = "ucm_pota_profile";
+  public string $tableName = "ucm_pota_profiles";
 
 }
