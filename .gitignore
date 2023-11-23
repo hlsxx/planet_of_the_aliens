@@ -1,0 +1,6 @@
+vendor
+composer.lock
+config.php
+/logs
+___files
+TODO.txt
