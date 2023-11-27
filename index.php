@@ -60,6 +60,10 @@ try {
 
   switch (Request::getParam('page')) {
 
+    case 'web':
+      include 'web/registration.php';
+    break;
+
     /**
      * @method GET
      * @param idPlayer
@@ -91,11 +95,12 @@ try {
       Request::validatePostParam('password');
 
       $postData = Request::getPostData();
+      //var_dump($postData);
 
       $profileData = $profileModel->getByCustom("nickname", $postData['nickname']);
       
       if (empty($profileData)) Response::throwException('Zadaný nickname sa nenašiel');
-
+var_dump($postData['password']);
       if (!password_verify($postData['password'], $profileData['password'])) {
         Response::throwException('Heslo je nesprávne');
       }
