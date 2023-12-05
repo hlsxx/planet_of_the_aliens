@@ -84,6 +84,24 @@ try {
     break;
 
     /**
+     * @method GET
+     */
+    case 'leaderboard':
+      $profileModel = $bride->initModel('profiles');
+
+      $players = $profileModel->query("
+        SELECT
+          nickname, score, total_kills, total_deaths
+        FROM {model}
+      ");
+
+      echo Response::getJson([
+        'status' => 'success',
+        'players' => $players
+      ]); 
+    break;
+
+    /**
      * @method POST
      * @param nickname
      * @param password
@@ -106,7 +124,8 @@ try {
  
       echo Response::getJson([
         'status' => 'success',
-        'profileData' => $profileData
+        'nickname' => $profileData['nickname'],
+        'score' => (int) $profileData['score']
       ]); 
     break;
 
